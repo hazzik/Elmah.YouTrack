@@ -2,6 +2,7 @@
 {
     public class ConfigKeys
     {
+        public static readonly string Url = "url";
         public static readonly string Host = "host";
         public static readonly string Port = "port";
         public static readonly string UseSsl = "useSsl";

@@ -14,7 +14,7 @@ To configure logger put
  <!--...-->
 
    <errorLog type="Elmah.YouTrack.YouTrackErrorLog, Elmah.YouTrack" 
-      host="your_youtrack_host_name"
+      url="your_youtrack_URI_address"
       applicationName="MyAppName" />
 
 <!--...-->
@@ -23,11 +23,15 @@ To configure logger put
 ```
 
 ##Configuration parameters
+* **project** - *string*, *required* - the project
+* **username** - *string*, *optional* - the user name 
+* **password** - *string*, *optional* - the password
+
+* **url** - *URI*, *required* - the URL of your YouTrack server
+
+**OR**
 
 * **host** - *string*, *required* - the host name of your YouTrack server
 * **port** - *number*, *optional*, default is `80` - the port of your YouTrack server application
 * **useSsl** - *boolean*, *optional*, default is `false` - set to `true` if you are using SSL on your server
 * **path** - *string*, *optional* - the path of the YouTrack application at the server
-* **username** - *string*, *optional* - the user name 
-* **username** - *string*, *optional* - the password
-* **project** - *string*, *required* - the project
