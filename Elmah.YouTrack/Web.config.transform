@@ -17,6 +17,6 @@
     </modules>
   </system.webServer>
   <elmah>
-    <youtrack url="http://youtrack.jetbrains.net/" />
+    <youtrack url="http://youtrack.jetbrains.net/" project="" />
   </elmah>
 </configuration>

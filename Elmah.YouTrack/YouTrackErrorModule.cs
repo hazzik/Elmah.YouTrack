@@ -86,7 +86,7 @@ namespace Elmah.YouTrack
             {
                 ReportError((Error) state);
             }
-            catch (SmtpException ex)
+            catch (Exception ex)
             {
                 Trace.TraceError(ex.ToString());
             }
