@@ -1,31 +1,29 @@
 Elmah.YouTrack
 ==============
 
-It is a logger for elmah which is aim to submit exceptions to your YouTrack tracker.
+This is a logger for ELMAH which is aim to submit exceptions to your YouTrack tracker.
 
 
 ##Basic configuration
 
-To configure logger put
-
 ```xml
 <elmah>
-
- <!--...-->
-
-   <errorLog type="Elmah.YouTrack.YouTrackErrorLog, Elmah.YouTrack" 
-      url="your_youtrack_URI_address"
-      applicationName="MyAppName" />
-
-<!--...-->
-
+    <!--...-->
+    <youtrack
+        url="your_youtrack_URI_address"
+        project="MyProject" />
+    <!--...-->
 </elmah>
 ```
 
 ##Configuration parameters
+
 * **project** - *string*, *required* - the project
-* **username** - *string*, *optional* - the user name 
 * **password** - *string*, *optional* - the password
+* **username** - *string*, *optional* - the user name 
+
+Connection configuration
+
 
 * **url** - *URI*, *required* - the URL of your YouTrack server
 
