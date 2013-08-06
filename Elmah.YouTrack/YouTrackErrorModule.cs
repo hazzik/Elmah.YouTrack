@@ -159,10 +159,10 @@ namespace Elmah.YouTrack
                     .AppendLine();
             }
 
-            Write(sb, "-- Server Variables", error.ServerVariables);
-            Write(sb, "-- Query String", error.QueryString);
-            Write(sb, "-- Form", error.Form);
-            Write(sb, "-- Cookies", error.Cookies);
+            Write(sb, "Server Variables", error.ServerVariables);
+            Write(sb, "Query String", error.QueryString);
+            Write(sb, "Form", error.Form);
+            Write(sb, "Cookies", error.Cookies);
 
             return sb.ToString();
         }
@@ -172,11 +172,13 @@ namespace Elmah.YouTrack
             if (value.Count == 0) return;
 
             sb.AppendLine()
-                .AppendLine(name);
+                .AppendFormat("{{cut {0}}}", name).AppendLine()
+                .AppendFormat("-- {0}", name).AppendLine();
 
             Write(sb, value);
 
-            sb.AppendLine();
+            sb.AppendLine("{cut}")
+                .AppendLine();
         }
 
         private static void Write(StringBuilder sb, string name, object value)
