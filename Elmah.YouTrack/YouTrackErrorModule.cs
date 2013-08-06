@@ -138,6 +138,8 @@ namespace Elmah.YouTrack
             Write(sb, "StatusCode", error.StatusCode);
             Write(sb, "WebHostHtmlMessage", error.WebHostHtmlMessage);
 
+            sb.AppendLine();
+
             var number = 1;
             var exceptions = GetExceptions(error.Exception);
             foreach (var exception in exceptions)
