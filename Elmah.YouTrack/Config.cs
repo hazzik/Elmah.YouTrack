@@ -28,6 +28,8 @@ namespace Elmah.YouTrack
 
         public string Path { get; set; }
 
+        public bool ReportAsynchronously { get; set; }
+
         public static Config FromDictionary(IDictionary dictionary)
         {
             var url = TryParse.Uri(dictionary.Get(ConfigKeys.Url), UriKind.RelativeOrAbsolute);
@@ -37,7 +39,7 @@ namespace Elmah.YouTrack
                 throw new ApplicationException("The \"url\" or \"host\" setting is not found in configuration");
             }
 
-            string project = dictionary.Get(ConfigKeys.Project);
+            var project = dictionary.Get(ConfigKeys.Project);
             if (string.IsNullOrEmpty(project))
             {
                 throw new ApplicationException("The \"project\" setting is not found in configuration");
@@ -52,6 +54,7 @@ namespace Elmah.YouTrack
                     Path = url.AbsolutePath,
                     Username = dictionary.Get(ConfigKeys.Username),
                     Password = dictionary.Get(ConfigKeys.Passwrod),
+                    ReportAsynchronously = TryParse.Boolean(dictionary.Get(ConfigKeys.ReportAsynchronously)).GetValueOrDefault(true)
                 };
             }
             else
@@ -62,7 +65,8 @@ namespace Elmah.YouTrack
                     UseSsl = TryParse.Boolean(dictionary.Get(ConfigKeys.UseSsl)).GetValueOrDefault(),
                     Path = dictionary.Get(ConfigKeys.Path),
                     Username = dictionary.Get(ConfigKeys.Username),
-                    Password = dictionary.Get(ConfigKeys.Passwrod)
+                    Password = dictionary.Get(ConfigKeys.Passwrod),
+                    ReportAsynchronously = TryParse.Boolean(dictionary.Get(ConfigKeys.ReportAsynchronously)).GetValueOrDefault(true)
                 };
             }
         }

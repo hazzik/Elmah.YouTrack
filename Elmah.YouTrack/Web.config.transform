@@ -1,0 +1,22 @@
+﻿<configuration>
+  <configSections>
+    <sectionGroup name="elmah">
+      <section name="youtrack" requirePermission="false"
+               type="Elmah.YouTrack.YouTrackErrorSectionHandler, Elmah.YouTrack" />
+    </sectionGroup>
+  </configSections>
+  <system.web>
+    <httpModules>
+      <add name="YouTrackError" type="Elmah.YouTrack.YouTrackErrorModule, Elmah.YouTrack" />
+    </httpModules>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules>
+      <add name="YouTrackError" type="Elmah.YouTrack.YouTrackErrorModule, Elmah.YouTrack" preCondition="managedHandler" />
+    </modules>
+  </system.webServer>
+  <elmah>
+    <youtrack url="http://youtrack.jetbrains.net/" />
+  </elmah>
+</configuration>

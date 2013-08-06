@@ -44,8 +44,10 @@
       <HintPath>..\packages\JsonFx.2.0.1209.2802\lib\net40\JsonFx.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,10 +64,12 @@
     <Compile Include="Config.cs" />
     <Compile Include="ConfigKeys.cs" />
     <Compile Include="DictionaryEx.cs" />
-    <Compile Include="YouTrackErrorLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YouTrackErrorModule.cs" />
+    <Compile Include="YouTrackErrorSectionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web.config.transform" />
     <None Include="Elmah.YouTrack.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

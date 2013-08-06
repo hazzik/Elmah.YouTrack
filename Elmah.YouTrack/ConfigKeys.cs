@@ -9,6 +9,7 @@
         public static readonly string Username = "username";
         public static readonly string Passwrod = "password";
         public static readonly string Path = "path";
-        public static string Project = "project";
+        public static readonly string Project = "project";
+        public static readonly string ReportAsynchronously = "reportAsynchronously";
     }
 }
