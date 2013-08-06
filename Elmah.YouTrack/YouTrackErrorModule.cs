@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
-using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -118,21 +119,97 @@ namespace Elmah.YouTrack
         {
             dynamic issue = new Issue();
             issue.summary = error.Message;
-            issue.description = ToDescription(error);
+            issue.description = BuildDescription(error);
             issue.project = _config.Project;
             issue.type = "Exception";
             return issue;
         }
 
-        private static string ToDescription(Error error)
+        private static string BuildDescription(Error error)
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine()
-                .AppendFormat("Exception = \"{0}\"", error.Exception)
-                .AppendLine();
+            Write(sb, "ApplicationName", error.ApplicationName);
+            Write(sb, "ErrorType", error.Type);
+            Write(sb, "Time", error.Time);
+            Write(sb, "HostName", error.HostName);
+            Write(sb, "Source", error.Source);
+            Write(sb, "User", error.User);
+            Write(sb, "StatusCode", error.StatusCode);
+            Write(sb, "WebHostHtmlMessage", error.WebHostHtmlMessage);
+
+            var number = 1;
+            var exceptions = GetExceptions(error.Exception);
+            foreach (var exception in exceptions)
+            {
+                sb
+                    .AppendFormat("-- EXCEPTION #{0}/{1} [{2}]", number++, exceptions.Count, exception.GetType().Name)
+                    .AppendLine()
+                    .AppendLine("Message = \"")
+                    .AppendLine(exception.Message)
+                    .AppendLine("\"")
+                    .AppendFormat("ClassName = \"{0}\"", exception.GetType().FullName)
+                    .AppendLine();
+
+                Write(sb, "Data", exception.Data);
+
+                sb.AppendLine("StackTraceString = \"")
+                    .AppendLine(exception.StackTrace)
+                    .AppendLine("\"")
+                    .AppendLine();
+            }
+
+            Write(sb, "-- Server Variables", error.ServerVariables);
+            Write(sb, "-- Query String", error.QueryString);
+            Write(sb, "-- Form", error.Form);
+            Write(sb, "-- Cookies", error.Cookies);
 
             return sb.ToString();
+        }
+
+        private static void Write(StringBuilder sb, string name, NameValueCollection value)
+        {
+            if (value.Count == 0) return;
+
+            sb.AppendLine()
+                .AppendLine(name);
+
+            Write(sb, value);
+
+            sb.AppendLine();
+        }
+
+        private static void Write(StringBuilder sb, string name, object value)
+        {
+            if (value != null && value.ToString() != string.Empty)
+                sb.AppendFormat("{0} = \"{1}\"", name, value).AppendLine();
+        }
+
+        private static void Write(StringBuilder sb, string name, IDictionary value)
+        {
+            foreach (DictionaryEntry entry in value.Keys)
+            {
+                sb.AppendFormat("{2}.{0} = \"{1}\"", entry.Key, entry.Value, name).AppendLine();
+            }
+        }
+
+        private static void Write(StringBuilder sb, NameValueCollection collection)
+        {
+            foreach (string key in collection)
+            {
+                sb.AppendFormat("{0} = \"{1}\"", key, collection[key]).AppendLine();
+            }
+        }
+
+        private static IList<Exception> GetExceptions(Exception exception)
+        {
+            var stack = new Stack<Exception>();
+            while (exception != null)
+            {
+                stack.Push(exception);
+                exception = exception.InnerException;
+            }
+            return stack.ToArray();
         }
 
         private static IDictionary GetConfig()
