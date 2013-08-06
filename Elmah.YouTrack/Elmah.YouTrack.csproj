@@ -69,7 +69,8 @@
     <Compile Include="YouTrackErrorSectionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config.transform" />
+    <Content Include="Web.config.install.xdt" />
+    <Content Include="Web.config.uninstall.xdt" />
     <None Include="Elmah.YouTrack.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

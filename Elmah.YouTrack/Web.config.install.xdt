@@ -1,0 +1,35 @@
+﻿<?xml version="1.0"?>
+
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <configSections>
+    <sectionGroup name="elmah">
+      <section name="youtrack"
+               requirePermission="false"
+               type="Elmah.YouTrack.YouTrackErrorSectionHandler, Elmah.YouTrack"
+               xdt:Transform="InsertIfMissing"
+               xdt:Locator="Match(name,type)" />
+    </sectionGroup>
+  </configSections>
+  <system.web>
+    <httpModules>
+      <add name="YouTrackError"
+           type="Elmah.YouTrack.YouTrackErrorModule, Elmah.YouTrack"
+           xdt:Transform="InsertIfMissing"
+           xdt:Locator="Match(type)" />
+    </httpModules>
+  </system.web>
+  <system.webServer>
+    <modules>
+      <add name="YouTrackError"
+           type="Elmah.YouTrack.YouTrackErrorModule, Elmah.YouTrack"
+           preCondition="managedHandler"
+           xdt:Transform="InsertIfMissing"
+           xdt:Locator="Match(type)" />
+    </modules>
+  </system.webServer>
+  <elmah>
+    <youtrack url="http://youtrack.jetbrains.net/"
+              project=""
+              xdt:Transform="InsertIfMissing" />
+  </elmah>
+</configuration>
