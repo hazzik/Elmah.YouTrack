@@ -4,7 +4,7 @@ Elmah.YouTrack
 This is a logger for ELMAH which is aim to submit exceptions to your YouTrack tracker.
 
 
-##Basic configuration
+## Basic configuration
 
 ```xml
 <elmah>
@@ -16,7 +16,7 @@ This is a logger for ELMAH which is aim to submit exceptions to your YouTrack tr
 </elmah>
 ```
 
-##Configuration parameters
+## Configuration parameters
 
 * **project** - *string*, *required* - the project
 * **password** - *string*, *optional* - the password
